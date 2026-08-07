@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meliodas AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: red;
+        }
+
+        #chat {
+            background: #222;
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: auto;
+            min-height: 250px;
+            text-align: left;
+        }
+
+        input {
+            width: 70%;
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px;
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🔥 Meliodas AI 🔥</h1>
+
+<div id="chat">
+    Bonjour, je suis Meliodas AI 🤖
+</div>
+
+<input id="message" placeholder="Écris ton message...">
+<button onclick="sendMessage()">Envoyer</button>
+
+<script>
+async function sendMessage() {
+    const message = document.getElementById("message").value;
+
+    const chat = document.getElementById("chat");
+    chat.innerHTML += "<p>👤 " + message + "</p>";
+
+    const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            message: message
+        })
+    });
+
+    const data = await response.json();
+
+    chat.innerHTML += "<p>🤖 " + data.reply + "</p>";
+}
+</script>
+
+</body>
+</html>
